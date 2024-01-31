@@ -8,3 +8,5 @@ class BookspiderSpider(scrapy.Spider):
 
     def parse(self, response):
         pass
+
+#tet
