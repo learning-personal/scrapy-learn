@@ -12,12 +12,16 @@ BOT_NAME = "udemy_bot"
 SPIDER_MODULES = ["udemy_bot.spiders"]
 NEWSPIDER_MODULE = "udemy_bot.spiders"
 
+SCRAPEOPS_API_KEY = "5de03edd-1bee-4aeb-af14-e469c8847b08"
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 50
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "udemy_bot (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -50,9 +54,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "udemy_bot.middlewares.UdemyBotDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   # "udemy_bot.middlewares.UdemyBotDownloaderMiddleware": 543,
+   'udemy_bot.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware': 400,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -62,9 +67,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "udemy_bot.pipelines.UdemyBotPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "udemy_bot.pipelines.UdemyBotPipeline": 300,
+   "udemy_bot.pipelines.BookscraperPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
